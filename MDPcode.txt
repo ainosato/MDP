@@ -1,0 +1,332 @@
+# -*- coding: utf-8 -*-
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5 import QtGui, uic
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+import RPi.GPIO as GPIO
+import time
+
+
+CalUI = '/home/pi/n_choice.ui' 
+KeyPadUI = '/home/pi/new_KeyPad.ui'
+OpenUI = '/home/pi/open-box2.ui'
+CloseUI = '/home/pi/close-box.ui'
+ClosingUI = '/home/pi/close_door.ui'
+
+
+GPIO.setmode(GPIO.BCM)
+    
+LEDbar = 17
+GPIO.setup(LEDbar, GPIO.OUT,initial=GPIO.LOW)
+
+ma=21
+GPIO.setup(ma,GPIO.IN)
+    
+pin = 18
+GPIO.setup(pin, GPIO.OUT)
+p = GPIO.PWM(pin, 50)
+
+p.start(7.5)
+
+class TaskThread(QThread):
+    finished=pyqtSignal()
+    def run(self):
+        time.sleep(4)
+        while(True):
+            print(GPIO.input(ma))
+            if GPIO.input(ma)!=0:
+                break
+        time.sleep(2)
+        GPIO.output(LEDbar,GPIO.LOW)
+        p.ChangeDutyCycle(7.5)
+        self.finished.emit()
+
+
+class KeyPadDialog(QDialog):
+    
+    def __init__(self):
+        QDialog.__init__(self)
+        self.ui = uic.loadUi(KeyPadUI, self)
+        self.ui.showFullScreen()
+
+        self.num_pushbutton_1.clicked.connect(lambda state, button=self.num_pushbutton_1: self.NumClicked(state, button))
+        self.num_pushbutton_2.clicked.connect(lambda state, button=self.num_pushbutton_2: self.NumClicked(state, button))
+        self.num_pushbutton_3.clicked.connect(lambda state, button=self.num_pushbutton_3: self.NumClicked(state, button))
+        self.num_pushbutton_4.clicked.connect(lambda state, button=self.num_pushbutton_4: self.NumClicked(state, button))
+        self.num_pushbutton_5.clicked.connect(lambda state, button=self.num_pushbutton_5: self.NumClicked(state, button))
+        self.num_pushbutton_6.clicked.connect(lambda state, button=self.num_pushbutton_6: self.NumClicked(state, button))
+        self.num_pushbutton_7.clicked.connect(lambda state, button=self.num_pushbutton_7: self.NumClicked(state, button))
+        self.num_pushbutton_8.clicked.connect(lambda state, button=self.num_pushbutton_8: self.NumClicked(state, button))
+        self.num_pushbutton_9.clicked.connect(lambda state, button=self.num_pushbutton_9: self.NumClicked(state, button))
+        self.num_pushbutton_0.clicked.connect(lambda state, button=self.num_pushbutton_0: self.NumClicked(state, button))
+
+        self.del_pushbutton.clicked.connect(self.Delete)
+        self.home_pushbutton.clicked.connect(self.Back)
+
+        self.num_pushbutton_1.setIcon(QIcon(QPixmap("n1.png")))
+        self.num_pushbutton_2.setIcon(QIcon(QPixmap("n2.png")))
+        self.num_pushbutton_3.setIcon(QIcon(QPixmap("n3.png")))
+        self.num_pushbutton_4.setIcon(QIcon(QPixmap("n4.png")))
+        self.num_pushbutton_5.setIcon(QIcon(QPixmap("n5.png")))
+        self.num_pushbutton_6.setIcon(QIcon(QPixmap("n6.png")))
+        self.num_pushbutton_7.setIcon(QIcon(QPixmap("n7.png")))
+        self.num_pushbutton_8.setIcon(QIcon(QPixmap("n8.png")))
+        self.num_pushbutton_9.setIcon(QIcon(QPixmap("n9.png")))
+        self.num_pushbutton_0.setIcon(QIcon(QPixmap("n0.png")))
+        self.num_pushbutton_1.setIconSize(QSize(80,80))
+        self.num_pushbutton_2.setIconSize(QSize(80,80))
+        self.num_pushbutton_3.setIconSize(QSize(80,80))
+        self.num_pushbutton_4.setIconSize(QSize(80,80))
+        self.num_pushbutton_5.setIconSize(QSize(80,80))
+        self.num_pushbutton_6.setIconSize(QSize(80,80))
+        self.num_pushbutton_7.setIconSize(QSize(80,80))
+        self.num_pushbutton_8.setIconSize(QSize(80,80))
+        self.num_pushbutton_9.setIconSize(QSize(80,80))
+        self.num_pushbutton_0.setIconSize(QSize(80,80))
+        
+        self.password_label.setStyleSheet('image:url(/home/pi/D_PW.png);')
+        self.del_pushbutton.setIcon(QIcon(QPixmap("DEL_1.png")))
+        self.home_pushbutton.setIcon(QIcon(QPixmap("home_1.png")))
+        self.enter_pushbutton.setIcon(QIcon(QPixmap("ent.png")))
+        self.del_pushbutton.setIconSize(QSize(150,100))
+        self.home_pushbutton.setIconSize(QSize(100,100))
+        self.enter_pushbutton.setIconSize(QSize(150,100))
+
+        self.num_pushbutton_1.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_2.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_3.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_4.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_5.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_6.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_7.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_8.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_9.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_0.setFont(QtGui.QFont("Regular", 1))
+
+        self.Q_lineEdit.textChanged.connect(self.lineEditChanged)
+        self.enter_pushbutton.clicked.connect(self.checkAnswer)
+        
+
+        
+    def lineEditChanged(self):
+        global answer
+        answer = self.Q_lineEdit.text()
+
+    def NumClicked(self, state, button):
+        now_num_text = button.text()
+        exist_line_text = self.Q_lineEdit.text()
+        self.Q_lineEdit.setText(exist_line_text + now_num_text)
+
+    def Delete(self):
+        exist_line_text = self.Q_lineEdit.text()
+        exist_line_text = exist_line_text[:-1]
+        self.Q_lineEdit.setText(exist_line_text)
+
+    def Back(self):
+        self.close()
+        Log = LoginDialog()
+        Log.exec_()
+
+    def checkAnswer(self):
+        global answer
+        if (answer == '1111'):
+            self.close()
+
+            GPIO.output(LEDbar,GPIO.HIGH)
+            p.ChangeDutyCycle(12.5)
+            
+            Op = OpenDialog()
+            Op.exec_()
+        else:
+            self.close()
+            Cl = CloseDialog()
+            Cl.exec_()
+
+class KeyPadDialog2(QDialog):
+    
+    def __init__(self):
+        QDialog.__init__(self)
+        self.ui = uic.loadUi(KeyPadUI, self)
+        self.ui.showFullScreen()
+
+        self.num_pushbutton_1.clicked.connect(lambda state, button=self.num_pushbutton_1: self.NumClicked(state, button))
+        self.num_pushbutton_2.clicked.connect(lambda state, button=self.num_pushbutton_2: self.NumClicked(state, button))
+        self.num_pushbutton_3.clicked.connect(lambda state, button=self.num_pushbutton_3: self.NumClicked(state, button))
+        self.num_pushbutton_4.clicked.connect(lambda state, button=self.num_pushbutton_4: self.NumClicked(state, button))
+        self.num_pushbutton_5.clicked.connect(lambda state, button=self.num_pushbutton_5: self.NumClicked(state, button))
+        self.num_pushbutton_6.clicked.connect(lambda state, button=self.num_pushbutton_6: self.NumClicked(state, button))
+        self.num_pushbutton_7.clicked.connect(lambda state, button=self.num_pushbutton_7: self.NumClicked(state, button))
+        self.num_pushbutton_8.clicked.connect(lambda state, button=self.num_pushbutton_8: self.NumClicked(state, button))
+        self.num_pushbutton_9.clicked.connect(lambda state, button=self.num_pushbutton_9: self.NumClicked(state, button))
+        self.num_pushbutton_0.clicked.connect(lambda state, button=self.num_pushbutton_0: self.NumClicked(state, button))
+
+        self.del_pushbutton.clicked.connect(self.Delete)
+        self.home_pushbutton.clicked.connect(self.Back)
+
+        
+        self.num_pushbutton_1.setIcon(QIcon(QPixmap("n1.png")))
+        self.num_pushbutton_2.setIcon(QIcon(QPixmap("n2.png")))
+        self.num_pushbutton_3.setIcon(QIcon(QPixmap("n3.png")))
+        self.num_pushbutton_4.setIcon(QIcon(QPixmap("n4.png")))
+        self.num_pushbutton_5.setIcon(QIcon(QPixmap("n5.png")))
+        self.num_pushbutton_6.setIcon(QIcon(QPixmap("n6.png")))
+        self.num_pushbutton_7.setIcon(QIcon(QPixmap("n7.png")))
+        self.num_pushbutton_8.setIcon(QIcon(QPixmap("n8.png")))
+        self.num_pushbutton_9.setIcon(QIcon(QPixmap("n9.png")))
+        self.num_pushbutton_0.setIcon(QIcon(QPixmap("n0.png")))
+        self.num_pushbutton_1.setIconSize(QSize(80,80))
+        self.num_pushbutton_2.setIconSize(QSize(80,80))
+        self.num_pushbutton_3.setIconSize(QSize(80,80))
+        self.num_pushbutton_4.setIconSize(QSize(80,80))
+        self.num_pushbutton_5.setIconSize(QSize(80,80))
+        self.num_pushbutton_6.setIconSize(QSize(80,80))
+        self.num_pushbutton_7.setIconSize(QSize(80,80))
+        self.num_pushbutton_8.setIconSize(QSize(80,80))
+        self.num_pushbutton_9.setIconSize(QSize(80,80))
+        self.num_pushbutton_0.setIconSize(QSize(80,80))
+
+        self.password_label.setStyleSheet('image:url(/home/pi/D_PW.png);')
+        self.del_pushbutton.setIcon(QIcon(QPixmap("DEL_1.png")))
+        self.home_pushbutton.setIcon(QIcon(QPixmap("home_1.png")))
+        self.enter_pushbutton.setIcon(QIcon(QPixmap("ent.png")))
+        self.del_pushbutton.setIconSize(QSize(150,100))
+        self.home_pushbutton.setIconSize(QSize(100,100))
+        self.enter_pushbutton.setIconSize(QSize(150,100))
+
+        self.num_pushbutton_1.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_2.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_3.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_4.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_5.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_6.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_7.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_8.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_9.setFont(QtGui.QFont("Regular", 1))
+        self.num_pushbutton_0.setFont(QtGui.QFont("Regular", 1))
+
+        self.Q_lineEdit.textChanged.connect(self.lineEditChanged)
+        self.enter_pushbutton.clicked.connect(self.checkAnswer)
+
+    def lineEditChanged(self):
+        global answer
+        answer = self.Q_lineEdit.text()
+
+    def NumClicked(self, state, button):
+        now_num_text = button.text()
+        exist_line_text = self.Q_lineEdit.text()
+        self.Q_lineEdit.setText(exist_line_text + now_num_text)
+
+    def Delete(self):
+        exist_line_text = self.Q_lineEdit.text()
+        exist_line_text = exist_line_text[:-1]
+        self.Q_lineEdit.setText(exist_line_text)
+
+    def Back(self):
+        self.close()
+        Log = LoginDialog()
+        Log.exec_()
+    def checkAnswer(self):
+        
+        if (answer == '2222'):
+            self.close()
+            
+            GPIO.output(LEDbar,GPIO.HIGH)
+            p.ChangeDutyCycle(12.5)
+            
+            Op = OpenDialog()
+            Op.exec_()
+        else:
+            self.close()
+            Cl = CloseDialog()
+            Cl.exec_()
+
+
+class OpenDialog(QDialog):
+    def __init__(self):
+        QDialog.__init__(self)
+        self.ui = uic.loadUi(OpenUI, self)
+        self.ui.showFullScreen()
+        self.open_label.setStyleSheet('image:url(/home/pi/open_2.png);')
+        
+        
+        self.myTask=TaskThread()
+        self.myTask.finished.connect(self.onFinished)
+        self.myTask.start()
+
+    def onFinished(self):
+        self.close()
+        Clo = ClosingDialog()
+        Clo.exec_()
+         
+
+
+class ClosingDialog(QDialog):
+    def __init__(self):
+        QDialog.__init__(self)
+        self.ui = uic.loadUi(ClosingUI, self)
+        self.ui.showFullScreen()
+        self.home_pushbutton.clicked.connect(self.func1)
+        self.home_pushbutton.setIcon(QIcon(QPixmap("HOME.png")))
+        self.home_pushbutton.setIconSize(QSize(350,300))
+        self.closing_label.setStyleSheet('image:url(/home/pi/close_door2.png);')
+        
+    def func1(self):
+        self.close()
+        Log = LoginDialog()
+        Log.exec_()
+        
+
+class CloseDialog(QDialog):
+    def __init__(self):
+        QDialog.__init__(self)
+        self.ui = uic.loadUi(CloseUI, self)
+        self.ui.showFullScreen()
+        self.home_pushbutton.clicked.connect(self.func1)
+        self.home_pushbutton.setIcon(QIcon(QPixmap("HOME.png")))
+        self.home_pushbutton.setIconSize(QSize(350,300))
+        self.close_label.setStyleSheet('image:url(/home/pi/close.png);')
+
+
+    def func1(self):
+        self.close()
+        Log = LoginDialog()
+        Log.exec_()
+
+
+class LoginDialog(QDialog):
+    def __init__(self):
+        QDialog.__init__(self)
+        self.ui = uic.loadUi(CalUI, self)
+        self.ui.showFullScreen()
+        self.pushbutton_1.clicked.connect(self.func1)
+        self.pushbutton_2.clicked.connect(self.func2)
+
+        self.pushbutton_1.setIcon(QIcon(QPixmap("USER.png")))
+        self.pushbutton_1.setIconSize(QSize(260,240))
+        
+        self.pushbutton_2.setIcon(QIcon(QPixmap("DEL.png")))
+        self.pushbutton_2.setIconSize(QSize(260,240))
+
+        self.choice_label.setStyleSheet('image:url(/home/pi/CHOICE.png);')
+
+    def func1(self):
+        self.close()
+        kpd = KeyPadDialog()
+        kpd.exec_()
+
+    def func2(self):
+        self.close()
+        kpd2 = KeyPadDialog2()
+        kpd2.exec_()
+
+app = QApplication(sys.argv)
+Log = LoginDialog()
+Log.show()
+app.exec_()
+
+
+
+
+
+
