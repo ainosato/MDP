@@ -18,6 +18,7 @@ MainUI = '../_uiFiles/main.ui'
 OutUI = '../_uiFiles/out.ui'
 OutcarUI = '../_uiFiles/outcar.ui'
 
+ar = []
 
 class MainDialog(QDialog):
     def __init__(self):
@@ -38,7 +39,6 @@ class MainDialog(QDialog):
 
 
 class KeypadDialog(QDialog):
-    global ar;
     def __init__(self):
         QDialog.__init__(self, None)
         self.sqlConnect()
@@ -65,14 +65,15 @@ class KeypadDialog(QDialog):
                 host="localhost",
                 user="root",
                 password="apmsetup",
-                db="opentutorials",
+                db="mydb1",
                 port=3306,
                 charset="utf8"
             )
+            print("연결 성공")
         except:
             print("문제 발생")
             exit(1)
-        print("연결 성공")
+
         self.cur = self.conn.cursor()
 
     def closeEvent(self, QCloseEvent):
@@ -90,17 +91,33 @@ class KeypadDialog(QDialog):
         self.q_lineEdit.setText(exist_line_text)
 
     def addPassword(self):
-        self.cmd = "INSERT INTO keypad('Password') VALUES (self.q_lineEdit.text())"
-        self.cur.execute(self.cmd)
-        self.conn.commit()
-        self.checkAnswer()
+        try:
+            self.conn = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="apmsetup",
+                db="mydb1",
+                port=3306,
+                charset="utf8"
+            )
+            print("연결 성공")
+            word = str(self.q_lineEdit.text())
+            self.cur = self.conn.cursor()
+            self.cmd = "INSERT INTO keypad (password) VALUES ('%s')" % word
+            self.cur.execute(self.cmd)
+            self.conn.commit()
+            self.checkAnswer()
+        except:
+            print('실행 불가')
+
 
     def checkAnswer(self):
+        global ar
         self.cmd = "SELECT * FROM keypad"
         self.cur.execute(self.cmd)
         self.conn.commit()
         ar = self.cur.fetchall()
-        if(ar['Password'] == self.q_lineEdit.text()):
+        if(self.q_lineEdit.text() in ar):
             self.close()
             Save = SaveDialog()
             Save.exec_()
