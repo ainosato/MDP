@@ -19,6 +19,7 @@ OutUI = '../_uiFiles/out.ui'
 OutcarUI = '../_uiFiles/outcar.ui'
 
 ar = []
+carID = []
 
 class MainDialog(QDialog):
     def __init__(self):
@@ -56,7 +57,7 @@ class KeypadDialog(QDialog):
         self.num_pushButton_0.clicked.connect(lambda state, button = self.num_pushButton_0 : self.NumClicked(state, button))
 
         self.del_pushButton.clicked.connect(self.Delete)
-        self.enter_pushButton.clicked.connect(self.addPassword)
+        self.enter_pushButton.clicked.connect(self.checkAnswer)
         self.home_pushButton.clicked.connect(self.home)
 
     def sqlConnect(self):
@@ -90,7 +91,13 @@ class KeypadDialog(QDialog):
         exist_line_text = exist_line_text[:-1]
         self.q_lineEdit.setText(exist_line_text)
 
-    def addPassword(self):
+
+    def checkAnswer(self):
+        global ar
+        self.cmd = "SELECT * FROM keypad"
+        self.cur.execute(self.cmd)
+        self.conn.commit()
+        ar = self.cur.fetchall()
         try:
             self.conn = pymysql.connect(
                 host="localhost",
@@ -106,24 +113,14 @@ class KeypadDialog(QDialog):
             self.cmd = "INSERT INTO keypad (password) VALUES ('%s')" % word
             self.cur.execute(self.cmd)
             self.conn.commit()
-            self.checkAnswer()
-        except:
-            print('실행 불가')
-
-
-    def checkAnswer(self):
-        global ar
-        self.cmd = "SELECT * FROM keypad"
-        self.cur.execute(self.cmd)
-        self.conn.commit()
-        ar = self.cur.fetchall()
-        if(self.q_lineEdit.text() in ar):
             self.close()
-            Save = SaveDialog()
-            Save.exec_()
-        else:
-            print("실행 불가")
-
+            save = SaveDialog()
+            save.exec_()
+        except:
+            print("동일한 비밀번호가 있습니다. 다시 입력하세요")
+            self.close()
+            key = KeypadDialog()
+            key.exec_()
 
     def home(self):
         self.close()
@@ -133,8 +130,43 @@ class KeypadDialog(QDialog):
 
 class SaveDialog(QDialog):
     def __init__(self):
+        global carID
         QDialog.__init__(self, None)
         uic.loadUi(SaveUI, self)
+        i = 0
+
+        try:
+            self.conn = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="apmsetup",
+                db="mydb1",
+                port=3306,
+                charset="utf8"
+            )
+            carID = [1, 2, 3, 4, 5, 6]
+            self.cur = self.conn.cursor()
+            self.cmd = "INSERT INTO keypad (carID) VALUES ('%d')" % carID[i]
+            self.cur.execute(self.cmd)
+            self.conn.commit()
+            del carID[i]
+        #     print("연결 성공")
+        #     # for i in carID:
+        #     #     carID = [1, 2, 3, 4, 5, 6]
+        #     #     self.cur = self.conn.cursor()
+        #     #     self.cmd = "INSERT INTO keypad (carID) VALUES ('%d')" % carID[i]
+        #     #     self.cur.execute(self.cmd)
+        #     #     self.conn.commit()
+        #     #     del carID[i]
+        #     #     break
+        #     self.close()
+        #     Main = MainDialog()
+        #     Main.exec_()
+        # except:
+        #     print("오류 발생")
+        #     self.close()
+        #     Main = MainDialog()
+        #     Main.exec_()
         self.home_pushButton.clicked.connect(self.home)
 
     def home(self):
