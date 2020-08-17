@@ -6,6 +6,6 @@
 * Python
 * PyQT5
 
-### Server
+## Server
 
 * MySQL
