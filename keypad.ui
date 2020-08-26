@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>543</width>
-    <height>430</height>
+    <width>1098</width>
+    <height>809</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,164 +16,71 @@
   <widget class="QLineEdit" name="q_lineEdit">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>40</y>
-     <width>291</width>
-     <height>20</height>
+     <x>280</x>
+     <y>250</y>
+     <width>461</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+color: rgb(0, 255, 255);
+font: 20pt &quot;HY견고딕&quot;;</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="num_pushButton_1">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>70</y>
-     <width>51</width>
-     <height>41</height>
+     <x>300</x>
+     <y>340</y>
+     <width>101</width>
+     <height>71</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/1.png);</string>
    </property>
    <property name="text">
     <string>1</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="num_pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>70</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>2</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="num_pushButton_3">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>70</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>3</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="num_pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>140</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>4</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="num_pushButton_5">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>140</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>5</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="num_pushButton_6">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>140</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>6</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="num_pushButton_7">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>190</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>7</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="num_pushButton_8">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>190</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>8</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="num_pushButton_9">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>190</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>9</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="del_pushButton">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>250</y>
-     <width>51</width>
-     <height>41</height>
+     <x>270</x>
+     <y>650</y>
+     <width>151</width>
+     <height>71</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-image: url(:/newPrefix/image/Del.png);
+background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
     <string>Del</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="num_pushButton_0">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>250</y>
-     <width>51</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>0</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="enter_pushButton">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>250</y>
-     <width>51</width>
-     <height>41</height>
+     <x>580</x>
+     <y>650</y>
+     <width>161</width>
+     <height>71</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/확인.png);
+</string>
    </property>
    <property name="text">
     <string>확인</string>
@@ -182,27 +89,221 @@
   <widget class="QLineEdit" name="q_lineEdit_2">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>10</y>
-     <width>291</width>
-     <height>20</height>
+     <x>280</x>
+     <y>170</y>
+     <width>461</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));
+color: rgb(0, 255, 255);
+font: 20pt &quot;HY견고딕&quot;;</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="home_pushButton">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>10</y>
-     <width>75</width>
+     <x>840</x>
+     <y>170</y>
+     <width>161</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/newPrefix/image/HOME.png);
+background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>60</y>
+     <width>821</width>
      <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/newPrefix/image/입차 시 비번입력 라벨.png);</string>
+   </property>
    <property name="text">
-    <string>HOME</string>
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>340</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/2.png);</string>
+   </property>
+   <property name="text">
+    <string>2</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>340</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/3.png);</string>
+   </property>
+   <property name="text">
+    <string>3</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>440</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/4.png);</string>
+   </property>
+   <property name="text">
+    <string>4</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_5">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>440</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/5.png);</string>
+   </property>
+   <property name="text">
+    <string>5</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_6">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>440</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/6.png);</string>
+   </property>
+   <property name="text">
+    <string>6</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_7">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>550</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/7.png);</string>
+   </property>
+   <property name="text">
+    <string>7</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_8">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>550</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/8.png);</string>
+   </property>
+   <property name="text">
+    <string>8</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_9">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>550</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/9.png);</string>
+   </property>
+   <property name="text">
+    <string>9</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="num_pushButton_0">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>650</y>
+     <width>101</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 1pt &quot;Agency FB&quot;;
+background-color: rgb(255, 255, 255);
+background-image: url(:/newPrefix/image/0.png);</string>
+   </property>
+   <property name="text">
+    <string>0</string>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../qrc/입차 시 비번 입력 라벨.qrc"/>
+  <include location="../qrc/Home 버튼.qrc"/>
+  <include location="../qrc/button.qrc"/>
+ </resources>
  <connections/>
 </ui>
