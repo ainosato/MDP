@@ -25,6 +25,7 @@ class MainDialog(QDialog):
     def __init__(self):
         QDialog.__init__(self, None)
         uic.loadUi(MainUI, self)
+
         self.in_pushButton.clicked.connect(self.go)
         self.out_pushButton.clicked.connect(self.out)
 
@@ -56,9 +57,20 @@ class KeypadDialog(QDialog):
         self.num_pushButton_9.clicked.connect(lambda state, button = self.num_pushButton_9 : self.NumClicked(state, button))
         self.num_pushButton_0.clicked.connect(lambda state, button = self.num_pushButton_0 : self.NumClicked(state, button))
 
+
+
+
         self.del_pushButton.clicked.connect(self.Delete)
         self.enter_pushButton.clicked.connect(self.checkAnswer)
         self.home_pushButton.clicked.connect(self.home)
+
+        self.num_pushbutton_1.setIcon(QIcon('image:url(../qrc/image/0.png);'))
+        self.num_pushbutton_1.setIconSize(QSize(80, 80))
+        self.num_pushButton_0.setStyleSheet('image:url(../qrc/image/0.png);')
+
+
+
+
 
     def sqlConnect(self):
         try:
@@ -146,34 +158,26 @@ class SaveDialog(QDialog):
             )
             carID = [1, 2, 3, 4, 5, 6]
             self.cur = self.conn.cursor()
-            self.cmd = "INSERT INTO keypad (carID) VALUES ('%d')" % carID[i]
+            self.cmd = "INSERT INTO keypad (carID) VALUES ('%d')" % carID[i] # carID[i]를 UART 통신으로 전송
             self.cur.execute(self.cmd)
             self.conn.commit()
-            del carID[i]
-        #     print("연결 성공")
-        #     # for i in carID:
-        #     #     carID = [1, 2, 3, 4, 5, 6]
-        #     #     self.cur = self.conn.cursor()
-        #     #     self.cmd = "INSERT INTO keypad (carID) VALUES ('%d')" % carID[i]
-        #     #     self.cur.execute(self.cmd)
-        #     #     self.conn.commit()
-        #     #     del carID[i]
-        #     #     break
-        #     self.close()
-        #     Main = MainDialog()
-        #     Main.exec_()
-        # except:
-        #     print("오류 발생")
-        #     self.close()
-        #     Main = MainDialog()
-        #     Main.exec_()
+            # del carID[i]
+            print("연결 성공")
+
+            self.close()
+            Main = MainDialog()
+            Main.exec_()
+        except:
+            print("오류 발생")
+            self.close()
+            Main = MainDialog()
+            Main.exec_()
         self.home_pushButton.clicked.connect(self.home)
 
     def home(self):
         self.close()
         Main = MainDialog()
         Main.exec_()
-
 
 
 class outDialog(QDialog):
@@ -216,6 +220,7 @@ class outDialog(QDialog):
         self.close()
         Main = MainDialog()
         Main.exec_()
+
 
 class OutcarDialog(QDialog):
     def __init__(self):
