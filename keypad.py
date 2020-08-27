@@ -9,6 +9,7 @@ from PyQt5.QtGui import QStandardItemModel
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from PyQt5 import QtGui
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 
@@ -58,16 +59,13 @@ class KeypadDialog(QDialog):
         self.num_pushButton_0.clicked.connect(lambda state, button = self.num_pushButton_0 : self.NumClicked(state, button))
 
 
-
-
         self.del_pushButton.clicked.connect(self.Delete)
         self.enter_pushButton.clicked.connect(self.checkAnswer)
         self.home_pushButton.clicked.connect(self.home)
 
-        self.num_pushbutton_1.setIcon(QIcon('image:url(../qrc/image/0.png);'))
-        self.num_pushbutton_1.setIconSize(QSize(80, 80))
-        self.num_pushButton_0.setStyleSheet('image:url(../qrc/image/0.png);')
 
+        self.num_pushButton_0.setStyleSheet('image:url(../qrc/image/0.png);')
+        self.num_pushButton_0.setFont(QtGui.QFont("궁서", 1))
 
 
 
