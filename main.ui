@@ -6,40 +6,68 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>643</width>
-    <height>484</height>
+    <width>879</width>
+    <height>613</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
   <widget class="QPushButton" name="in_pushButton">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>160</y>
-     <width>111</width>
-     <height>131</height>
+     <x>170</x>
+     <y>300</y>
+     <width>171</width>
+     <height>91</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/newPrefix/image/입차.png);</string>
+   </property>
    <property name="text">
-    <string>입차</string>
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>100</y>
+     <width>591</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/newPrefix/image/service.png);</string>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="out_pushButton">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>160</y>
-     <width>121</width>
-     <height>131</height>
+     <x>540</x>
+     <y>300</y>
+     <width>171</width>
+     <height>91</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(:/newPrefix/image/out.png);</string>
+   </property>
    <property name="text">
-    <string>출차</string>
+    <string/>
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../qrc/label.qrc"/>
+  <include location="../qrc/button2.qrc"/>
+ </resources>
  <connections/>
 </ui>

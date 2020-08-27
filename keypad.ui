@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1098</width>
-    <height>809</height>
+    <width>1007</width>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QLineEdit" name="q_lineEdit">
    <property name="geometry">
@@ -40,6 +43,12 @@ font: 20pt &quot;HY견고딕&quot;;</string>
      <height>71</height>
     </rect>
    </property>
+   <property name="maximumSize">
+    <size>
+     <width>101</width>
+     <height>16777215</height>
+    </size>
+   </property>
    <property name="styleSheet">
     <string notr="true">font: 1pt &quot;Agency FB&quot;;
 background-color: rgb(255, 255, 255);
@@ -64,7 +73,7 @@ background-image: url(:/newPrefix/image/Del.png);
 background-color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Del</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="enter_pushButton">
@@ -83,7 +92,7 @@ background-image: url(:/newPrefix/image/확인.png);
 </string>
    </property>
    <property name="text">
-    <string>확인</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLineEdit" name="q_lineEdit_2">
@@ -121,7 +130,7 @@ background-color: rgb(255, 255, 255);</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="password_label">
    <property name="geometry">
     <rect>
      <x>130</x>

@@ -203,7 +203,7 @@ font: 20pt &quot;HY견고딕&quot;;</string>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>80</x>
      <y>80</y>
      <width>841</width>
      <height>51</height>

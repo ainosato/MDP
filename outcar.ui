@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>291</height>
+    <width>780</width>
+    <height>587</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>40</y>
+     <x>300</x>
+     <y>60</y>
      <width>171</width>
      <height>81</height>
     </rect>
@@ -35,14 +35,27 @@ p, li { white-space: pre-wrap; }
   <widget class="QPushButton" name="home_pushButton">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>160</y>
+     <x>350</x>
+     <y>340</y>
      <width>75</width>
      <height>61</height>
     </rect>
    </property>
    <property name="text">
     <string>처음으로</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>180</y>
+     <width>601</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
    </property>
   </widget>
  </widget>
