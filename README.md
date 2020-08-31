@@ -12,7 +12,7 @@
   
  
 <h2>입차와 출차를 결정하는 첫 화면</h2>
-<img src="https://user-images.githubusercontent.com/56681766/90367702-116f8100-e0a4-11ea-871f-7bec8523518c.PNG">
+<img src="C:\Users\user\Desktop\깃허브캡처\1.png">
 <h2>사용자가 비밀번호를 입력하는 화면과 저장 완료를 알리는 화면</h2>
 <div>
 <img src="https://user-images.githubusercontent.com/56681766/90367704-12081780-e0a4-11ea-9cfb-205e043cc9d0.PNG">
