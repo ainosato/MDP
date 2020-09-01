@@ -64,16 +64,16 @@ class KeypadDialog(QDialog):
         self.sqlConnect()
         uic.loadUi(PadUI, self)
 
-        self.num_pushButton_1.clicked.connect(lambda state, button = self.num_pushButton_1 : self.NumClicked(state, button))
-        self.num_pushButton_2.clicked.connect(lambda state, button = self.num_pushButton_2 : self.NumClicked(state, button))
-        self.num_pushButton_3.clicked.connect(lambda state, button = self.num_pushButton_3 : self.NumClicked(state, button))
-        self.num_pushButton_4.clicked.connect(lambda state, button = self.num_pushButton_4 : self.NumClicked(state, button))
-        self.num_pushButton_5.clicked.connect(lambda state, button = self.num_pushButton_5 : self.NumClicked(state, button))
-        self.num_pushButton_6.clicked.connect(lambda state, button = self.num_pushButton_6 : self.NumClicked(state, button))
-        self.num_pushButton_7.clicked.connect(lambda state, button = self.num_pushButton_7 : self.NumClicked(state, button))
-        self.num_pushButton_8.clicked.connect(lambda state, button = self.num_pushButton_8 : self.NumClicked(state, button))
-        self.num_pushButton_9.clicked.connect(lambda state, button = self.num_pushButton_9 : self.NumClicked(state, button))
-        self.num_pushButton_0.clicked.connect(lambda state, button = self.num_pushButton_0 : self.NumClicked(state, button))
+        self.num_pushButton_1.clicked.connect(lambda state, button=self.num_pushButton_1: self.NumClicked(state, button))
+        self.num_pushButton_2.clicked.connect(lambda state, button=self.num_pushButton_2: self.NumClicked(state, button))
+        self.num_pushButton_3.clicked.connect(lambda state, button=self.num_pushButton_3: self.NumClicked(state, button))
+        self.num_pushButton_4.clicked.connect(lambda state, button=self.num_pushButton_4: self.NumClicked(state, button))
+        self.num_pushButton_5.clicked.connect(lambda state, button=self.num_pushButton_5: self.NumClicked(state, button))
+        self.num_pushButton_6.clicked.connect(lambda state, button=self.num_pushButton_6: self.NumClicked(state, button))
+        self.num_pushButton_7.clicked.connect(lambda state, button=self.num_pushButton_7: self.NumClicked(state, button))
+        self.num_pushButton_8.clicked.connect(lambda state, button=self.num_pushButton_8: self.NumClicked(state, button))
+        self.num_pushButton_9.clicked.connect(lambda state, button=self.num_pushButton_9: self.NumClicked(state, button))
+        self.num_pushButton_0.clicked.connect(lambda state, button=self.num_pushButton_0: self.NumClicked(state, button))
 
 
         self.del_pushButton.clicked.connect(self.Delete)
@@ -207,25 +207,19 @@ class KeypadDialog(QDialog):
         self.conn.commit()
         ar = self.cur.fetchall()
         try:
-            self.conn = pymysql.connect(
-                host="localhost",
-                user="root",
-                password="apmsetup",
-                db="mydb1",
-                port=3306,
-                charset="utf8"
-            )
-            print("연결 성공")
             word = str(self.q_lineEdit.text())
-            self.cur = self.conn.cursor()
-            self.cmd = "INSERT INTO keypad (password) VALUES ('%s')" % word
-            self.cur.execute(self.cmd)
-            self.conn.commit()
-            self.close()
-            save = SaveDialog()
-            save.exec_()
+            if len(word) >= 4:
+                self.cur = self.conn.cursor()
+                self.cmd = "INSERT INTO keypad (password) VALUES ('%s')" % word
+                self.cur.execute(self.cmd)
+                self.conn.commit()
+                self.close()
+                save = SaveDialog()
+                save.exec_()
+            else:
+                print("비밀번호가 너무 짧습니다. 4자리 이상 입력해주세요")
         except:
-            print("동일한 비밀번호가 있습니다. 다시 입력하세요")
+            print("동일한 비밀번호가 있습니다. 다시 입력해주세요")
 
 
     def home(self):
