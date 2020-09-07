@@ -206,11 +206,6 @@ class KeypadDialog(Keypad, QDialog):
 
 
     def checkAnswer(self):
-        global ar
-        self.cmd = "SELECT * FROM keypad"
-        self.cur.execute(self.cmd)
-        self.conn.commit()
-        ar = self.cur.fetchall()
         try:
             word = str(self.q_lineEdit.text())
             if len(word) >= 4:
@@ -286,16 +281,29 @@ class SaveDialog(QDialog):
 class outDialog(Keypad):
     def __init__(self):
         super().__init__()
-        uic.loadUi(OutUI, self)
+
         self.password_label.setStyleSheet(
             '''
                  QLabel{image:url(../image/pw_label2.png); border:0px;}
             '''
         )
     def checkAnswer(self):
-        self.close()
-        out = OutcarDialog()
-        out.exec_()
+        self.cmd = "SELECT password FROM keypad"
+        self.cur.execute(self.cmd)
+        self.conn.commit()
+        word = str(self.q_lineEdit.text())
+
+        try:
+            while self.cur.fetchone():
+                ar = self.cur.fetchone()
+                if word in ar:
+                    self.close()
+                    out = OutcarDialog()
+                    out.exec_()
+        except:
+            print("일치하는 비밀번호가 없습니다")
+
+
 
 
 
