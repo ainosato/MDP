@@ -22,7 +22,6 @@ OutcarUI = '../_uiFiles/outcar.ui'
 ar = []
 carID = []
 
-
 class MainDialog(QDialog):
     def __init__(self):
         QDialog.__init__(self, None)
@@ -57,13 +56,11 @@ class MainDialog(QDialog):
         out = outDialog()
         out.exec_()
 
-
-class KeypadDialog(QDialog):
+class Keypad(QDialog):
     def __init__(self):
         QDialog.__init__(self, None)
-        self.sqlConnect()
         uic.loadUi(PadUI, self)
-
+        self.sqlConnect()
         self.num_pushButton_1.clicked.connect(lambda state, button=self.num_pushButton_1: self.NumClicked(state, button))
         self.num_pushButton_2.clicked.connect(lambda state, button=self.num_pushButton_2: self.NumClicked(state, button))
         self.num_pushButton_3.clicked.connect(lambda state, button=self.num_pushButton_3: self.NumClicked(state, button))
@@ -75,11 +72,9 @@ class KeypadDialog(QDialog):
         self.num_pushButton_9.clicked.connect(lambda state, button=self.num_pushButton_9: self.NumClicked(state, button))
         self.num_pushButton_0.clicked.connect(lambda state, button=self.num_pushButton_0: self.NumClicked(state, button))
 
-
         self.del_pushButton.clicked.connect(self.Delete)
         self.enter_pushButton.clicked.connect(self.checkAnswer)
         self.home_pushButton.clicked.connect(self.home)
-
 
         self.num_pushButton_0.setStyleSheet(
         '''
@@ -159,14 +154,11 @@ class KeypadDialog(QDialog):
             '''
         )
 
-
         self.password_label.setStyleSheet(
             '''
                  QLabel{image:url(../image/pw_label.png); border:0px;}
             '''
         )
-
-
 
     def sqlConnect(self):
         try:
@@ -179,11 +171,11 @@ class KeypadDialog(QDialog):
                 charset="utf8"
             )
             print("연결 성공")
+            self.cur = self.conn.cursor()
         except:
             print("문제 발생")
             exit(1)
 
-        self.cur = self.conn.cursor()
 
     def closeEvent(self, QCloseEvent):
         print("close")
@@ -198,6 +190,19 @@ class KeypadDialog(QDialog):
         exist_line_text = self.q_lineEdit.text()
         exist_line_text = exist_line_text[:-1]
         self.q_lineEdit.setText(exist_line_text)
+
+    def home(self):
+        self.close()
+        Main = MainDialog()
+        Main.exec_()
+
+
+
+
+class KeypadDialog(Keypad, QDialog):
+    def __init__(self):
+        QDialog.__init__(self, None)
+        super().__init__()
 
 
     def checkAnswer(self):
@@ -221,11 +226,6 @@ class KeypadDialog(QDialog):
         except:
             print("동일한 비밀번호가 있습니다. 다시 입력해주세요")
 
-
-    def home(self):
-        self.close()
-        Main = MainDialog()
-        Main.exec_()
 
 
 class SaveDialog(QDialog):
@@ -283,130 +283,20 @@ class SaveDialog(QDialog):
         Main.exec_()
 
 
-class outDialog(QDialog):
+class outDialog(Keypad):
     def __init__(self):
-        QDialog.__init__(self, None)
+        super().__init__()
         uic.loadUi(OutUI, self)
-
-        self.num_pushButton_1.clicked.connect(lambda state, button = self.num_pushButton_1 : self.NumClicked(state, button))
-        self.num_pushButton_2.clicked.connect(lambda state, button = self.num_pushButton_2 : self.NumClicked(state, button))
-        self.num_pushButton_3.clicked.connect(lambda state, button = self.num_pushButton_3 : self.NumClicked(state, button))
-        self.num_pushButton_4.clicked.connect(lambda state, button = self.num_pushButton_4 : self.NumClicked(state, button))
-        self.num_pushButton_5.clicked.connect(lambda state, button = self.num_pushButton_5 : self.NumClicked(state, button))
-        self.num_pushButton_6.clicked.connect(lambda state, button = self.num_pushButton_6 : self.NumClicked(state, button))
-        self.num_pushButton_7.clicked.connect(lambda state, button = self.num_pushButton_7 : self.NumClicked(state, button))
-        self.num_pushButton_0.clicked.connect(lambda state, button = self.num_pushButton_0 : self.NumClicked(state, button))
-        self.num_pushButton_8.clicked.connect(lambda state, button = self.num_pushButton_8 : self.NumClicked(state, button))
-        self.num_pushButton_9.clicked.connect(lambda state, button = self.num_pushButton_9 : self.NumClicked(state, button))
-
-        self.del_pushButton.clicked.connect(self.Delete)
-        self.enter_pushButton.clicked.connect(self.checkAnswer)
-        self.home_pushButton.clicked.connect(self.home)
-
-        self.num_pushButton_0.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/0.png); border:0px;}
-                QPushButton:hover{image:url(../image/0.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_0.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_1.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/1.png); border:0px;}
-                QPushButton:hover{image:url(../image/1.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_1.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_2.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/2.png); border:0px;}
-                QPushButton:hover{image:url(../image/2.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_2.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_3.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/3.png); border:0px;}
-                QPushButton:hover{image:url(../image/3.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_3.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_4.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/4.png); border:0px;}
-                QPushButton:hover{image:url(../image/4.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_4.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_5.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/5.png); border:0px;}
-                QPushButton:hover{image:url(../image/5.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_5.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_6.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/6.png); border:0px;}
-                QPushButton:hover{image:url(../image/6.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_6.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_7.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/7.png); border:0px;}
-                QPushButton:hover{image:url(../image/7.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_7.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_8.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/8.png); border:0px;}
-                QPushButton:hover{image:url(../image/8.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_8.setFont(QtGui.QFont("궁서", 1))
-        self.num_pushButton_9.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/9.png); border:0px;}
-                QPushButton:hover{image:url(../image/9.png); border:4px solid gray;}
-            ''')
-        self.num_pushButton_9.setFont(QtGui.QFont("궁서", 1))
-        self.del_pushButton.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/Del.png); border:0px;}
-                QPushButton:hover{image:url(../image/Del.png); border:4px solid gray;}
-            ''')
-        self.enter_pushButton.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/확인.png); border:0px;}
-                QPushButton:hover{image:url(../image/확인.png); border:4px solid gray;}
-            '''
-        )
-        self.home_pushButton.setStyleSheet(
-            '''
-                QPushButton{image:url(../image/HOME.png); border:0px; padding: 0px;}
-                QPushButton:hover{image:url(../image/HOME.png); border:4px solid gray;}
-            '''
-        )
-
         self.password_label.setStyleSheet(
             '''
                  QLabel{image:url(../image/pw_label2.png); border:0px;}
             '''
         )
-
-
-    def NumClicked(self, state, button):
-        exist_line_text = self.q_lineEdit.text()
-        now_num_text = button.text()
-        self.q_lineEdit.setText(exist_line_text + now_num_text)
-
-    def Delete(self):
-        exist_line_text = self.q_lineEdit.text()
-        exist_line_text = exist_line_text[:-1]
-        self.q_lineEdit.setText(exist_line_text)
-
     def checkAnswer(self):
         self.close()
-        car = OutcarDialog()
-        car.exec_()
+        out = OutcarDialog()
+        out.exec_()
 
-    def home(self):
-        self.close()
-        Main = MainDialog()
-        Main.exec_()
 
 
 class OutcarDialog(QDialog):
