@@ -12,6 +12,8 @@ from PyQt5.QtCore import *
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
+from tkinter import *
+import tkinter.messagebox
 
 PadUI = '../_uiFiles/keypad.ui'
 SaveUI = '../_uiFiles/saved.ui'
@@ -291,17 +293,22 @@ class outDialog(Keypad):
         self.cmd = "SELECT password FROM keypad"
         self.cur.execute(self.cmd)
         self.conn.commit()
+        ar = self.cur.fetchall()
         word = str(self.q_lineEdit.text())
+        c = 0
+        for i in range(len(ar)):
+            if word in ar[i]:
+                self.cmd = "DELETE FROM keypad WHERE (password) = ('%s')" % word
+                self.cur.execute(self.cmd)
+                self.conn.commit()
+                self.close()
+                out = OutcarDialog()
+                out.exec_()
+                c=1
+        if c==0:
+            tkinter.messagebox.showwarning("경고", "잘못된 비밀번호입니다")
 
-        try:
-            while self.cur.fetchone():
-                ar = self.cur.fetchone()
-                if word in ar:
-                    self.close()
-                    out = OutcarDialog()
-                    out.exec_()
-        except:
-            print("일치하는 비밀번호가 없습니다")
+
 
 
 
