@@ -247,31 +247,7 @@ class SaveDialog(QDialog):
             '''
         )
 
-        # try:
-        #     self.conn = pymysql.connect(
-        #         host="localhost",
-        #         user="root",
-        #         password="apmsetup",
-        #         db="mydb1",
-        #         port=3306,
-        #         charset="utf8"
-        #     )
-        #     carID = [1, 2, 3, 4, 5, 6]
-        #     self.cur = self.conn.cursor()
-        #     self.cmd = "INSERT INTO keypad (carID) VALUES ('%d')" % carID[i] # carID[i]를 UART 통신으로 전송
-        #     self.cur.execute(self.cmd)
-        #     self.conn.commit()
-        #     # del carID[i]
-        #     print("연결 성공")
-        #
-        #     self.close()
-        #     Main = MainDialog()
-        #     Main.exec_()
-        # except:
-        #     print("오류 발생")
-        #     self.close()
-        #     Main = MainDialog()
-        #     Main.exec_()
+
 
 
     def home(self):
@@ -305,7 +281,7 @@ class outDialog(Keypad):
                 out = OutcarDialog()
                 out.exec_()
                 c=1
-        if c==0:
+        if c == 0:
             tkinter.messagebox.showwarning("경고", "잘못된 비밀번호입니다")
 
 
