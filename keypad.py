@@ -24,6 +24,7 @@ OutcarUI = '../_uiFiles/outcar.ui'
 ar = []
 carID = []
 
+
 class MainDialog(QDialog):
     def __init__(self):
         QDialog.__init__(self, None)
@@ -60,6 +61,7 @@ class MainDialog(QDialog):
 
 class Keypad(QDialog):
     def __init__(self):
+
         QDialog.__init__(self, None)
         uic.loadUi(PadUI, self)
         self.sqlConnect()
@@ -203,6 +205,7 @@ class Keypad(QDialog):
 
 class KeypadDialog(Keypad, QDialog):
     def __init__(self):
+        global carID
         QDialog.__init__(self, None)
         super().__init__()
 
@@ -211,17 +214,20 @@ class KeypadDialog(Keypad, QDialog):
         try:
             word = str(self.q_lineEdit.text())
             if len(word) >= 4:
+                print(carID)
+                carNum = carID[0]
+                self.cmd = "INSERT INTO keypad (password, carID) VALUES (%s, %d)" % (word, carNum)
                 self.cur = self.conn.cursor()
-                self.cmd = "INSERT INTO keypad (password) VALUES ('%s')" % word
                 self.cur.execute(self.cmd)
                 self.conn.commit()
+                del carID[0]
                 self.close()
                 save = SaveDialog()
                 save.exec_()
             else:
-                print("비밀번호가 너무 짧습니다. 4자리 이상 입력해주세요")
+                tkinter.messagebox.showwarning("경고", "비밀번호가 너무 짧습니다. 4자리 이상 입력해주세요")
         except:
-            print("동일한 비밀번호가 있습니다. 다시 입력해주세요")
+             tkinter.messagebox.showwarning("경고", "동일한 비밀번호가 있습니다. 다시 입력해주세요")
 
 
 
@@ -258,6 +264,7 @@ class SaveDialog(QDialog):
 
 class outDialog(Keypad):
     def __init__(self):
+        global carID
         super().__init__()
 
         self.password_label.setStyleSheet(
@@ -266,6 +273,7 @@ class outDialog(Keypad):
             '''
         )
     def checkAnswer(self):
+        print(carID)
         self.cmd = "SELECT password FROM keypad"
         self.cur.execute(self.cmd)
         self.conn.commit()
