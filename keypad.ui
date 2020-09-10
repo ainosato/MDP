@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1007</width>
-    <height>752</height>
+    <height>870</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <widget class="QLineEdit" name="q_lineEdit">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>230</y>
+     <x>280</x>
+     <y>310</y>
      <width>461</width>
      <height>61</height>
     </rect>
@@ -36,8 +36,8 @@ font: 20pt &quot;HY견고딕&quot;;</string>
   <widget class="QPushButton" name="num_pushButton_1">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>320</y>
+     <x>300</x>
+     <y>400</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -60,8 +60,8 @@ background-image: url(:/newPrefix/image/1.png);</string>
   <widget class="QPushButton" name="del_pushButton">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>630</y>
+     <x>270</x>
+     <y>710</y>
      <width>151</width>
      <height>71</height>
     </rect>
@@ -78,8 +78,8 @@ background-color: rgb(255, 255, 255);</string>
   <widget class="QPushButton" name="enter_pushButton">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>630</y>
+     <x>580</x>
+     <y>710</y>
      <width>161</width>
      <height>71</height>
     </rect>
@@ -97,8 +97,8 @@ background-image: url(:/newPrefix/image/확인.png);
   <widget class="QLineEdit" name="q_lineEdit_2">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>150</y>
+     <x>280</x>
+     <y>230</y>
      <width>461</width>
      <height>61</height>
     </rect>
@@ -115,10 +115,10 @@ font: 20pt &quot;HY견고딕&quot;;</string>
   <widget class="QPushButton" name="home_pushButton">
    <property name="geometry">
     <rect>
-     <x>780</x>
-     <y>150</y>
-     <width>161</width>
-     <height>171</height>
+     <x>820</x>
+     <y>20</y>
+     <width>101</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -132,8 +132,8 @@ background-color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="password_label">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>40</y>
+     <x>120</x>
+     <y>130</y>
      <width>821</width>
      <height>61</height>
     </rect>
@@ -148,8 +148,8 @@ background-color: rgb(255, 255, 255);</string>
   <widget class="QPushButton" name="num_pushButton_2">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>320</y>
+     <x>450</x>
+     <y>400</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -166,8 +166,8 @@ background-image: url(:/newPrefix/image/2.png);</string>
   <widget class="QPushButton" name="num_pushButton_3">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>320</y>
+     <x>600</x>
+     <y>400</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -184,8 +184,8 @@ background-image: url(:/newPrefix/image/3.png);</string>
   <widget class="QPushButton" name="num_pushButton_4">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>420</y>
+     <x>300</x>
+     <y>500</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -202,8 +202,8 @@ background-image: url(:/newPrefix/image/4.png);</string>
   <widget class="QPushButton" name="num_pushButton_5">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>420</y>
+     <x>450</x>
+     <y>500</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -220,8 +220,8 @@ background-image: url(:/newPrefix/image/5.png);</string>
   <widget class="QPushButton" name="num_pushButton_6">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>420</y>
+     <x>600</x>
+     <y>500</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -238,8 +238,8 @@ background-image: url(:/newPrefix/image/6.png);</string>
   <widget class="QPushButton" name="num_pushButton_7">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>530</y>
+     <x>300</x>
+     <y>610</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -256,8 +256,8 @@ background-image: url(:/newPrefix/image/7.png);</string>
   <widget class="QPushButton" name="num_pushButton_8">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>530</y>
+     <x>450</x>
+     <y>610</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -274,8 +274,8 @@ background-image: url(:/newPrefix/image/8.png);</string>
   <widget class="QPushButton" name="num_pushButton_9">
    <property name="geometry">
     <rect>
-     <x>540</x>
-     <y>530</y>
+     <x>600</x>
+     <y>610</y>
      <width>101</width>
      <height>71</height>
     </rect>
@@ -292,8 +292,8 @@ background-image: url(:/newPrefix/image/9.png);</string>
   <widget class="QPushButton" name="num_pushButton_0">
    <property name="geometry">
     <rect>
-     <x>390</x>
-     <y>630</y>
+     <x>450</x>
+     <y>710</y>
      <width>101</width>
      <height>71</height>
     </rect>
