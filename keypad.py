@@ -293,8 +293,6 @@ class outDialog(Keypad):
             null = ''
             for i in range(0, 8):
                 if word in ar[i]:
-                    print(ar[i])
-                    print(word)
                     self.cmd = "UPDATE keypad SET password = ('%s') WHERE password = ('%s')" % (null, word)
                     self.cur.execute(self.cmd)
                     self.conn.commit()
