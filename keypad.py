@@ -214,16 +214,27 @@ class KeypadDialog(Keypad, QDialog):
         try:
             word = str(self.q_lineEdit.text())
             if len(word) >= 4:
-                print(carID)
-                carNum = carID[0]
-                self.cmd = "INSERT INTO keypad (password, carID) VALUES (%s, %d)" % (word, carNum)
+                self.cmd = "SELECT password FROM keypad ORDER BY carID"
                 self.cur = self.conn.cursor()
                 self.cur.execute(self.cmd)
                 self.conn.commit()
-                del carID[0]
-                self.close()
-                save = SaveDialog()
-                save.exec_()
+                ar = self.cur.fetchall()
+                self.cmd = "SELECT carID FROM keypad ORDER BY carID"
+                self.cur = self.conn.cursor()
+                self.cur.execute(self.cmd)
+                self.conn.commit()
+                ar2 = self.cur.fetchall()
+
+                for i in range(0, 8):
+                    if not ar[i][0]:
+                        self.cmd = "UPDATE keypad SET password = ('%s') WHERE carID = ('%d')" % (word, ar2[i][0])
+                        self.cur = self.conn.cursor()
+                        self.cur.execute(self.cmd)
+                        self.conn.commit()
+                        self.close()
+                        save = SaveDialog()
+                        save.exec_()
+
             else:
                 tkinter.messagebox.showwarning("경고", "비밀번호가 너무 짧습니다. 4자리 이상 입력해주세요")
         except:
@@ -273,24 +284,25 @@ class outDialog(Keypad):
             '''
         )
     def checkAnswer(self):
-        print(carID)
-        self.cmd = "SELECT password FROM keypad"
-        self.cur.execute(self.cmd)
-        self.conn.commit()
-        ar = self.cur.fetchall()
-        word = str(self.q_lineEdit.text())
-        c = 0
-        for i in range(len(ar)):
-            if word in ar[i]:
-                self.cmd = "DELETE FROM keypad WHERE (password) = ('%s')" % word
-                self.cur.execute(self.cmd)
-                self.conn.commit()
-                self.close()
-                out = OutcarDialog()
-                out.exec_()
-                c=1
-        if c == 0:
-            tkinter.messagebox.showwarning("경고", "잘못된 비밀번호입니다")
+        try:
+            self.cmd = "SELECT password FROM keypad ORDER BY carID"
+            self.cur.execute(self.cmd)
+            self.conn.commit()
+            ar = self.cur.fetchall()
+            word = str(self.q_lineEdit.text())
+            null = ''
+            for i in range(0, 7):
+                if word in ar[i]:
+                    print(ar[i])
+                    print(word)
+                    self.cmd = "UPDATE keypad SET password = ('%s') WHERE password = ('%s')" % (null, word)
+                    self.cur.execute(self.cmd)
+                    self.conn.commit()
+                    self.close()
+                    out = OutcarDialog()
+                    out.exec_()
+        except:
+            tkinter.messagebox.showwarning("경고", "일치하는 비밀번호가 없습니다")
 
 
 
