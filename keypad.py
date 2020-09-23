@@ -291,7 +291,7 @@ class outDialog(Keypad):
             ar = self.cur.fetchall()
             word = str(self.q_lineEdit.text())
             null = ''
-            for i in range(0, 7):
+            for i in range(0, 8):
                 if word in ar[i]:
                     print(ar[i])
                     print(word)
