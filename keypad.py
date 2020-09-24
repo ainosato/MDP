@@ -25,9 +25,12 @@ ar = []
 carID = []
 
 
+
 class MainDialog(QDialog):
     def __init__(self):
         QDialog.__init__(self, None)
+        self.sqlConnect()
+
         uic.loadUi(MainUI, self)
 
         self.in_pushButton.clicked.connect(self.go)
@@ -49,10 +52,37 @@ class MainDialog(QDialog):
             '''
         )
 
+    def sqlConnect(self):
+        try:
+            self.conn = pymysql.connect(
+                host="localhost",
+                user="root",
+                password="apmsetup",
+                db="mydb1",
+                port=3306,
+                charset="utf8"
+            )
+            print("연결 성공")
+            self.cur = self.conn.cursor()
+        except:
+            print("문제 발생")
+            exit(1)
+
     def go(self):
-        self.close()
-        pad = KeypadDialog()
-        pad.exec_()
+        self.cmd = "SELECT password FROM keypad ORDER BY carID"
+        self.cur = self.conn.cursor()
+        self.cur.execute(self.cmd)
+        self.conn.commit()
+        ar = self.cur.fetchall()
+
+        if ar[0][0] and ar[1][0] and ar[2][0] and ar[3][0] and ar[4][0] and ar[5][0] and ar[6][0] and ar[7][0]:
+            tkinter.messagebox.showwarning("경고", "현재 남아 있는 주차 공간이 없습니다")
+        else:
+            self.close()
+            pad = KeypadDialog()
+            pad.exec_()
+
+
 
     def out(self):
         self.close()
@@ -247,7 +277,6 @@ class SaveDialog(QDialog):
         global carID
         QDialog.__init__(self, None)
         uic.loadUi(SaveUI, self)
-        i = 0
 
         self.home_pushButton.clicked.connect(self.home)
 
@@ -292,15 +321,24 @@ class outDialog(Keypad):
             word = str(self.q_lineEdit.text())
             null = ''
             for i in range(0, 8):
-                if word in ar[i]:
-                    self.cmd = "UPDATE keypad SET password = ('%s') WHERE password = ('%s')" % (null, word)
-                    self.cur.execute(self.cmd)
-                    self.conn.commit()
-                    self.close()
-                    out = OutcarDialog()
-                    out.exec_()
+                if word not in ar[i]:
+                    continue
+                    # print(word)
+                    # print(ar[i])
+                    # self.cmd = "UPDATE keypad SET password = ('%s') WHERE password = ('%s')" % (null, word)
+                    # self.cur.execute(self.cmd)
+                    # self.conn.commit()
+                    # self.close()
+                    # out = OutcarDialog()
+                    # out.exec_()
+
+
+
         except:
-            tkinter.messagebox.showwarning("경고", "일치하는 비밀번호가 없습니다")
+            print("오류 발생")
+
+
+
 
 
 
