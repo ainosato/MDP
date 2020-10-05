@@ -329,8 +329,8 @@ class outDialog(Keypad):
             for i in range(0, 9):
                 if word == null:
                     raise TypeError
-                # elif i == 8:
-                #     raise ValueError
+                elif i == 8:
+                    raise ValueError
                 elif word == ar[i][0]:
                     print(word)
                     print(ar[i][0])
@@ -340,15 +340,15 @@ class outDialog(Keypad):
                     self.close()
                     out = OutcarDialog()
                     out.exec_()
-                # else:
-                #     continue
+                else:
+                    continue
 
 
         except TypeError:
-            print("입력값이 잘못되었습니다.")
+            tkinter.messagebox.showwarning("경고", "입력값이 잘못되었습니다.")
 
         except ValueError:
-            print("일치하는 비밀번호가 없습니다.")
+            tkinter.messagebox.showwarning("경고", "동일한 비밀번호가 없습니다.")
 
 
 
