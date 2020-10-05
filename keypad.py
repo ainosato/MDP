@@ -43,8 +43,8 @@ class MainDialog(QDialog):
             ''')
         self.out_pushButton.setStyleSheet(
             '''
-                QPushButton{image:url(../image/out.png); border:5px solid gray; border-radius:10px;}
-                QPushButton:hover{image:url(../image/out.png); border:3px solid gray;}
+                QPushButton{image:url(../image/그룹 4.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 8.png); border:0px;}
             ''')
         self.service_label.setStyleSheet(
             '''
@@ -76,7 +76,7 @@ class MainDialog(QDialog):
         ar = self.cur.fetchall()
 
         if ar[0][0] and ar[1][0] and ar[2][0] and ar[3][0] and ar[4][0] and ar[5][0] and ar[6][0] and ar[7][0]:
-            tkinter.messagebox.showwarning("경고", "현재 남아 있는 주차 공간이 없습니다")
+            tkinter.messagebox.showwarning("경고", "현재 남아있는 주차 공간이 없습니다")
         else:
             self.close()
             pad = KeypadDialog()
@@ -243,6 +243,7 @@ class KeypadDialog(Keypad, QDialog):
     def checkAnswer(self):
         try:
             word = str(self.q_lineEdit.text())
+            ar3 = []
             if len(word) >= 4:
                 self.cmd = "SELECT password FROM keypad ORDER BY carID"
                 self.cur = self.conn.cursor()
@@ -264,11 +265,16 @@ class KeypadDialog(Keypad, QDialog):
                         self.close()
                         save = SaveDialog()
                         save.exec_()
+                    elif word in ar[i][0]:
+                        raise ValueError
+
+
 
             else:
                 tkinter.messagebox.showwarning("경고", "비밀번호가 너무 짧습니다. 4자리 이상 입력해주세요")
-        except:
-             tkinter.messagebox.showwarning("경고", "동일한 비밀번호가 있습니다. 다시 입력해주세요")
+        except ValueError:
+            tkinter.messagebox.showwarning("경고", "동일한 비밀번호가 있습니다. 다시 입력해주세요")
+
 
 
 
@@ -313,29 +319,39 @@ class outDialog(Keypad):
             '''
         )
     def checkAnswer(self):
+        self.cmd = "SELECT password FROM keypad ORDER BY carID"
+        self.cur.execute(self.cmd)
+        self.conn.commit()
+        ar = self.cur.fetchall()
+        word = str(self.q_lineEdit.text())
+        null = ''
         try:
-            self.cmd = "SELECT password FROM keypad ORDER BY carID"
-            self.cur.execute(self.cmd)
-            self.conn.commit()
-            ar = self.cur.fetchall()
-            word = str(self.q_lineEdit.text())
-            null = ''
-            for i in range(0, 8):
-                if word not in ar[i]:
-                    continue
-                    # print(word)
-                    # print(ar[i])
-                    # self.cmd = "UPDATE keypad SET password = ('%s') WHERE password = ('%s')" % (null, word)
-                    # self.cur.execute(self.cmd)
-                    # self.conn.commit()
-                    # self.close()
-                    # out = OutcarDialog()
-                    # out.exec_()
+            for i in range(0, 9):
+                if word == null:
+                    raise TypeError
+                # elif i == 8:
+                #     raise ValueError
+                elif word == ar[i][0]:
+                    print(word)
+                    print(ar[i][0])
+                    self.cmd = "UPDATE keypad SET password = ('%s') WHERE password = ('%s')" % (null, word)
+                    self.cur.execute(self.cmd)
+                    self.conn.commit()
+                    self.close()
+                    out = OutcarDialog()
+                    out.exec_()
+                # else:
+                #     continue
+
+
+        except TypeError:
+            print("입력값이 잘못되었습니다.")
+
+        except ValueError:
+            print("일치하는 비밀번호가 없습니다.")
 
 
 
-        except:
-            print("오류 발생")
 
 
 
