@@ -13,6 +13,10 @@ from PyQt5 import QtGui
 from PyQt5.QtWidgets import *
 from PyQt5 import uic
 from tkinter import *
+import timeit
+import time
+import threading
+from time import sleep
 import tkinter.messagebox
 
 PadUI = '../_uiFiles/keypad.ui'
@@ -38,13 +42,13 @@ class MainDialog(QDialog):
 
         self.in_pushButton.setStyleSheet(
             '''
-                QPushButton{image:url(../image/입차.png); border:5px solid gray; border-radius:10px;}
-                QPushButton:hover{image:url(../image/입차.png); border:3px solid gray;}
+                QPushButton{image:url(../image/그룹 14.png); border:0px solid gray; border-radius:10px;}
+                QPushButton:hover{image:url(../image/그룹 16.png); border:0px solid gray;}
             ''')
         self.out_pushButton.setStyleSheet(
             '''
-                QPushButton{image:url(../image/그룹 4.png); border:0px;}
-                QPushButton:hover{image:url(../image/그룹 8.png); border:0px;}
+                QPushButton{image:url(../image/그룹 15.png); border:0px solid gray; border-radius:10px;}
+                QPushButton:hover{image:url(../image/그룹 17.png); border:0px solid gray;}
             ''')
         self.service_label.setStyleSheet(
             '''
@@ -91,7 +95,6 @@ class MainDialog(QDialog):
 
 class Keypad(QDialog):
     def __init__(self):
-
         QDialog.__init__(self, None)
         uic.loadUi(PadUI, self)
         self.sqlConnect()
@@ -112,79 +115,91 @@ class Keypad(QDialog):
 
         self.num_pushButton_0.setStyleSheet(
         '''
-            QPushButton{image:url(../image/0.png); border:0px;}
-            QPushButton:hover{image:url(../image/0.png); border:4px solid gray;}
+            QPushButton{image:url(../image/그룹 36.png); border:0px;}
+            QPushButton:hover{image:url(../image/그룹 36.png); border:4px solid gray;}
         ''')
         self.num_pushButton_0.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_1.setStyleSheet(
             '''
-                QPushButton{image:url(../image/1.png); border:0px;}
-                QPushButton:hover{image:url(../image/1.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 21.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 21.png); border:4px solid gray;}
             ''')
         self.num_pushButton_1.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_2.setStyleSheet(
             '''
-                QPushButton{image:url(../image/2.png); border:0px;}
-                QPushButton:hover{image:url(../image/2.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 22.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 22.png); border:4px solid gray;}
             ''')
         self.num_pushButton_2.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_3.setStyleSheet(
             '''
-                QPushButton{image:url(../image/3.png); border:0px;}
-                QPushButton:hover{image:url(../image/3.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 23.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 23.png); border:4px solid gray;}
             ''')
         self.num_pushButton_3.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_4.setStyleSheet(
             '''
-                QPushButton{image:url(../image/4.png); border:0px;}
-                QPushButton:hover{image:url(../image/4.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 24.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 24.png); border:4px solid gray;}
             ''')
         self.num_pushButton_4.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_5.setStyleSheet(
             '''
-                QPushButton{image:url(../image/5.png); border:0px;}
-                QPushButton:hover{image:url(../image/5.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 25.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 25.png); border:4px solid gray;}
             ''')
         self.num_pushButton_5.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_6.setStyleSheet(
             '''
-                QPushButton{image:url(../image/6.png); border:0px;}
-                QPushButton:hover{image:url(../image/6.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 26.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 26.png); border:4px solid gray;}
             ''')
         self.num_pushButton_6.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_7.setStyleSheet(
             '''
-                QPushButton{image:url(../image/7.png); border:0px;}
-                QPushButton:hover{image:url(../image/7.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 27.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 27.png); border:4px solid gray;}
             ''')
         self.num_pushButton_7.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_8.setStyleSheet(
             '''
-                QPushButton{image:url(../image/8.png); border:0px;}
-                QPushButton:hover{image:url(../image/8.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 31.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 31.png); border:4px solid gray;}
             ''')
         self.num_pushButton_8.setFont(QtGui.QFont("궁서", 1))
         self.num_pushButton_9.setStyleSheet(
             '''
-                QPushButton{image:url(../image/9.png); border:0px;}
-                QPushButton:hover{image:url(../image/9.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 30.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 30.png); border:4px solid gray;}
             ''')
         self.num_pushButton_9.setFont(QtGui.QFont("궁서", 1))
+        self.num_pushButton_10.setStyleSheet(
+            '''
+                QPushButton{image:url(../image/그룹 28.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 28.png); border:4px solid gray;}
+            ''')
+        self.num_pushButton_10.setFont(QtGui.QFont("궁서", 1))
+        self.num_pushButton_11.setStyleSheet(
+            '''
+                QPushButton{image:url(../image/그룹 29.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 29.png); border:4px solid gray;}
+            ''')
+        self.num_pushButton_11.setFont(QtGui.QFont("궁서", 1))
         self.del_pushButton.setStyleSheet(
             '''
-                QPushButton{image:url(../image/Del.png); border:0px;}
-                QPushButton:hover{image:url(../image/Del.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 20.png); border:0px;}
+                QPushButton:hover{image:url(../image/그룹 20.png); border:4px solid gray;}
             ''')
         self.enter_pushButton.setStyleSheet(
             '''
-                QPushButton{image:url(../image/확인.png); border-radius:35px;}
-                QPushButton:hover{image:url(../image/확인.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 37.png); border-radius:35px;}
+                QPushButton:hover{image:url(../image/그룹 37.png); border:4px solid gray;}
             '''
         )
         self.home_pushButton.setStyleSheet(
             '''
-                QPushButton{image:url(../image/HOME.png); border:0px; padding: 0px;}
-                QPushButton:hover{image:url(../image/HOME.png); border:4px solid gray;}
+                QPushButton{image:url(../image/그룹 35.png); border:0px; padding: 0px;}
+                QPushButton:hover{image:url(../image/그룹 35.png); border:4px solid gray;}
             '''
         )
 
@@ -243,7 +258,6 @@ class KeypadDialog(Keypad, QDialog):
     def checkAnswer(self):
         try:
             word = str(self.q_lineEdit.text())
-            ar3 = []
             if len(word) >= 4:
                 self.cmd = "SELECT password FROM keypad ORDER BY carID"
                 self.cur = self.conn.cursor()
@@ -283,9 +297,7 @@ class SaveDialog(QDialog):
         global carID
         QDialog.__init__(self, None)
         uic.loadUi(SaveUI, self)
-
-        self.home_pushButton.clicked.connect(self.home)
-
+        self.home()
         self.home_pushButton.setStyleSheet(
             '''
                 QPushButton{image:url(../image/HOME.png); border:0px; padding: 0px;}
@@ -299,13 +311,18 @@ class SaveDialog(QDialog):
             '''
         )
 
-
-
-
     def home(self):
+        threading.Timer(2.5, self.home).start()
         self.close()
         Main = MainDialog()
         Main.exec_()
+
+
+
+
+
+
+
 
 
 class outDialog(Keypad):
@@ -332,8 +349,6 @@ class outDialog(Keypad):
                 elif i == 8:
                     raise ValueError
                 elif word == ar[i][0]:
-                    print(word)
-                    print(ar[i][0])
                     self.cmd = "UPDATE keypad SET password = ('%s') WHERE password = ('%s')" % (null, word)
                     self.cur.execute(self.cmd)
                     self.conn.commit()
