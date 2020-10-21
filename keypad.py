@@ -86,8 +86,6 @@ class MainDialog(QDialog):
             pad = KeypadDialog()
             pad.exec_()
 
-
-
     def out(self):
         self.close()
         out = outDialog()
@@ -297,7 +295,7 @@ class SaveDialog(QDialog):
         global carID
         QDialog.__init__(self, None)
         uic.loadUi(SaveUI, self)
-        self.home()
+        self.home_pushButton.clicked.connect(self.home)
         self.home_pushButton.setStyleSheet(
             '''
                 QPushButton{image:url(../image/HOME.png); border:0px; padding: 0px;}
@@ -312,16 +310,9 @@ class SaveDialog(QDialog):
         )
 
     def home(self):
-        threading.Timer(2.5, self.home).start()
         self.close()
         Main = MainDialog()
         Main.exec_()
-
-
-
-
-
-
 
 
 
